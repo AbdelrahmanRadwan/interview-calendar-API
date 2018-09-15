@@ -12,6 +12,11 @@ class CalendarSlot:
         self.start_time = start_time
         self.end_time = next_hour(start_time)
 
+    def is_available(self):
+        """
+        :return: Boolean value; if the interviewee name is "", this means that this slot was not allocated yet
+        """
+        return not self.interviewee
 
 class Calendar:
     """
@@ -28,4 +33,12 @@ class Calendar:
                                 start_time=start_time,
                                 interviewee=interviewee)
         self.slots.append(new_slot)
+        return new_slot
+
+    def get_available_slots(self):
+        available_slots = list()
+        for slot in self.slots:
+            if slot.is_available():
+                available_slots.append(slot)
+        return available_slots
 
