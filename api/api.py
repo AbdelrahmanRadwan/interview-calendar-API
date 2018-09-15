@@ -1,48 +1,52 @@
 from pathlib import Path
 
+from interviews_calendar.calendar import Calendar
+
 from flask import Flask, jsonify, request
 
 ROOT_DIR = str(Path(__file__).parents[2])
-app = Flask(__name__)  # define app using Flask
+app = Flask(__name__)
+
+interviews_calendar = Calendar()
 
 
-@app.route('/calendar/heartbeat', methods=['GET'])
+@app.route('/interviews_calendar/heartbeat', methods=['GET'])
 def heartbeat():
     return jsonify({"who": 'Hello <3'})
 
 
-@app.route('/calendar/available-times', methods=['GET'])
+@app.route('/interviews_calendar/admin/view-all', methods=['GET'])
+def view_calendar():
+    response = interviews_calendar.get_slots()
+    return jsonify(response)
+
+
+@app.route('/interviews_calendar/interviewee/available-times', methods=['GET', 'POST'])
 def available_times():
-    query = request.args.get('q').lower().rstrip().lstrip()
+    req = request.get_json()
+    if request.method == 'GET':
+        response = interviews_calendar.get_available_slots()
+        print(response)
+        return jsonify(response)
 
-    response = []
-
-    return jsonify(response)
-
-
-@app.route('/calendar/interviewer/add-slot', methods=['GET'])
-def suggestions_club():
-    query = request.args.get('q').lower().rstrip().lstrip()
-
-    response = []
-
-    return jsonify(response)
+    elif request.method == 'POST':
+        interviewee = req["interviewee"]
+        slot_id = req["slot_id"]
+        response = interviews_calendar.set_interview(interviewee=interviewee, slot_id=slot_id)
+        return jsonify(response)
 
 
-@app.route('/calendar/interviewee/choose-slot', methods=['GET'])
-def suggestions_club():
-    query = request.args.get('q').lower().rstrip().lstrip()
+@app.route('/interviews_calendar/interviewer/add-slots', methods=['POST'])
+def add_available_times():
+    req = request.get_json()
+    interviewers = req["interviewers"]
+    interviewee = req.get("interviewee") or ""
+    start_times = req["start_times"]
 
-    response = []
-
-    return jsonify(response)
-
-
-@app.route('/calendar/search', methods=['GET'])
-def suggestions_club():
-    query = request.args.get('q').lower().rstrip().lstrip()
-
-    response = []
+    added_slots = interviews_calendar.add_slots(interviewers=interviewers,
+                                                interviewee=interviewee,
+                                                start_times=start_times)
+    response = added_slots
 
     return jsonify(response)
 
