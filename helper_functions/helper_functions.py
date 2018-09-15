@@ -18,6 +18,5 @@ def string_to_datetime(date_time_string):
     return parse(date_time_string)
 
 
-
-
-#print(string_to_datetime("12-1-2017 22:30"))
+def datetime_to_string(date_time_string):
+    return date_time_string.strftime("%Y-%m-%d %H:%M:%S")
