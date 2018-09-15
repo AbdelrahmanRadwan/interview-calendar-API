@@ -26,7 +26,7 @@ interviews_calendar/
 │   └── [GET]
 │
 ├── interviewee/
-│   ├── available-times: [GET]
+│   ├── available-times [GET]
 │   └── available-times [POST]
 │
 └── admin/
@@ -34,14 +34,14 @@ interviews_calendar/
 ```
 
 ## How to use
-1) Interviewer
+### 1) Interviewer
 The Interviewer can post a slot, in which he/she has time to interview somebody in!
 
-| Route | Method | Parameters | 
+|                    Route                 | Method | Parameters | 
 |------------------------------------------|----|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |/interviews_calendar/interviewer/add-slots|POST|{"interviewers": list of strings, the names of the interviewers, "interviewee": string(optional field) the name of the interviewee, "start_times": list of strings, the datetime of the available times}|
-### Examples:
-#### POST Request sample
+#### Examples:
+##### POST Request sample
 ```http request
 curl -X POST \
   http://0.0.0.0:8080/interviews_calendar/interviewer/add-slots \
@@ -49,7 +49,7 @@ curl -X POST \
   -H 'content-type: application/json' \
   -d '{"interviewers": ["Morgan", "Geni mardoc", "JC-Quillet"], "start_times": ["12-1-2017 22:30", "01-01-2018 10:30"]}'
 ```
-#### POST Response example
+##### POST Response example
 ```json
 [
     {
@@ -75,7 +75,7 @@ curl -X POST \
 ]
 ```
 
-2) Interviewee
+###2) Interviewee
 The Interviewee can view all the available slots (slots which no candidate took yet), and he/she can pick one to have an interview in.
 
 
@@ -83,14 +83,14 @@ The Interviewee can view all the available slots (slots which no candidate took 
 |------------------------------------------------|----|----------------------------------------------------------------------------------------------------------------------------------------|
 |/interviews_calendar/interviewee/available-times|GET |-|
 |/interviews_calendar/interviewee/available-times|POST|{"interviewee": interviewee name, "slot_id": id of the time slot (consider that it's the zero-based array slot from the previous route)}|
-### Examples:
-#### GET Request sample
+#### Examples:
+##### GET Request sample
 ```http request
 curl -X GET \
   http://0.0.0.0:8080/interviews_calendar/interviewee/available-times \
   -H 'cache-control: no-cache'
 ```
-#### GET Response example
+##### GET Response example
 ```json
 [
     {
@@ -115,7 +115,7 @@ curl -X GET \
     }
 ]
 ```
-#### POST Request sample
+##### POST Request sample
 ```http request
 curl -X POST \
   http://0.0.0.0:8080/interviews_calendar/interviewee/available-times \
@@ -126,7 +126,7 @@ curl -X POST \
 	"slot_id": 1
 }'
 ```
-#### POST Response example
+##### POST Response example
 ```json
 {
     "end_time": "Monday 2018-01-01 from 11:30:00.",
@@ -140,21 +140,21 @@ curl -X POST \
 }
 ```
 
-3) System Admin
+###3) System Admin
 The system Admin can view all the slots scheduled on the calender so far.
 
 | Route | Method | Parameters | 
 |-----------------------------------|---|-|
 |/interviews_calendar/admin/view-all|GET|-|
-### Examples:
-#### GET Request sample
+#### Examples:
+##### GET Request sample
 ```http request
 curl -X GET \
   http://0.0.0.0:8080/interviews_calendar/admin/view-all \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json'
 ```
-#### GET Response example
+##### GET Response example
 ```Json
 [
     {
@@ -180,21 +180,21 @@ curl -X GET \
 ]
 ```
 
-4) All
+###4) All
 Anybody can search for the added slots in the calendar in a specific time frame
 
 | Route | Method | Parameters | 
 |---------------------------|---|-|
 |/interviews_calendar/search|GET|-|
 
-### Examples:
-#### GET Request sample
+#### Examples:
+##### GET Request sample
 ```http request
 curl -X GET \
   'http://0.0.0.0:8080/interviews_calendar/search?start_date=01-01-2018-10:30&end_date=05-05-2018-10:30' \
   -H 'cache-control: no-cache' \
 ```
-#### GET Response example
+##### GET Response example
 ```json
 [
     {
