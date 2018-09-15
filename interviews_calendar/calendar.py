@@ -34,6 +34,8 @@ class CalendarSlot:
         """
         self.interviewee = interviewee
 
+    def in_time_range(self, start_time: datetime, end_time: datetime):
+        return self.start_time >= start_time and self.start_time <= end_time
 
 class Calendar:
     """
@@ -74,3 +76,14 @@ class Calendar:
     def set_interview(self, slot_id: int, interviewee: str):
         self.slots[slot_id].set_interviewee(interviewee)
         return self.slots[slot_id].serialize()
+
+    def search(self, start_date: str, end_date: str):
+        valid_slots = []
+        start_date = string_to_datetime(start_date)
+        end_date = string_to_datetime(end_date)
+
+        for slot_index in range(len(self.slots)):
+            if self.slots[slot_index].in_time_range(start_date, end_date):
+                valid_slots.append(self.slots[slot_index].serialize())
+
+        return valid_slots
