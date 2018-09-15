@@ -88,7 +88,7 @@ The Interviewee can view all the available slots (slots which no candidate took 
 ```http request
 curl -X GET \
   http://0.0.0.0:8080/interviews_calendar/interviewee/available-times \
-  -H 'cache-control: no-cache' \
+  -H 'cache-control: no-cache'
 ```
 #### GET Response example
 ```json
@@ -152,8 +152,7 @@ The system Admin can view all the slots scheduled on the calender so far.
 curl -X GET \
   http://0.0.0.0:8080/interviews_calendar/admin/view-all \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/json' \
-  -d '{"interviewers": ["Morgan", "Geni mardoc", "JC-Quillet"], "start_times": ["12-1-2017 22:30", "01-01-2018 10:30"]}'
+  -H 'content-type: application/json'
 ```
 #### GET Response example
 ```Json
@@ -170,7 +169,7 @@ curl -X GET \
     },
     {
         "end_time": "Monday 2018-01-01 from 11:30:00.",
-        "interviewee": "",
+        "interviewee": "interviewee name :)",
         "interviewers": [
             "Morgan",
             "Geni mardoc",
@@ -190,10 +189,23 @@ Anybody can search for the added slots in the calendar in a specific time frame
 
 ### Examples:
 #### GET Request sample
-```
-
+```http request
+curl -X GET \
+  'http://0.0.0.0:8080/interviews_calendar/search?start_date=01-01-2018-10:30&end_date=05-05-2018-10:30' \
+  -H 'cache-control: no-cache' \
 ```
 #### GET Response example
-```
-
+```json
+[
+    {
+        "end_time": "Monday 2018-01-01 from 11:30:00.",
+        "interviewee": "",
+        "interviewers": [
+            "Morgan",
+            "Geni mardoc",
+            "JC-Quillet"
+        ],
+        "start_time": "Monday 2018-01-01 from 10:30:00."
+    }
+]
 ```
