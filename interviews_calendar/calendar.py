@@ -18,6 +18,7 @@ class CalendarSlot:
         """
         return not self.interviewee
 
+
 class Calendar:
     """
     All the allocated slots in the interviews calender
@@ -34,6 +35,12 @@ class Calendar:
                                 interviewee=interviewee)
         self.slots.append(new_slot)
         return new_slot
+
+    def add_slots(self, interviewers: list(), start_times: list(), interviewee: str = ""):
+        for time in start_times:
+            self.add_slot(interviewers=interviewers,
+                          start_time=time,
+                          interviewee=interviewee)
 
     def get_available_slots(self):
         available_slots = list()
