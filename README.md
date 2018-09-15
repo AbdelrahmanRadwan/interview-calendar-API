@@ -75,7 +75,7 @@ curl -X POST \
 ]
 ```
 
-###2) Interviewee
+### 2) Interviewee
 The Interviewee can view all the available slots (slots which no candidate took yet), and he/she can pick one to have an interview in.
 
 
@@ -140,7 +140,7 @@ curl -X POST \
 }
 ```
 
-###3) System Admin
+### 3) System Admin
 The system Admin can view all the slots scheduled on the calender so far.
 
 | Route | Method | Parameters | 
@@ -180,7 +180,7 @@ curl -X GET \
 ]
 ```
 
-###4) All
+### 4) All
 Anybody can search for the added slots in the calendar in a specific time frame
 
 | Route | Method | Parameters | 

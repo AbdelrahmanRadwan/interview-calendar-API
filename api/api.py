@@ -23,8 +23,8 @@ def heartbeat():
 @app.route('/interviews_calendar/admin/view-all', methods=['GET'])
 def view_calendar():
     """
-
-    :return:
+    The Admin may need to check the whole added slots with or whithout interviewee assigned to them!
+    :return: all the slots added to the system so far
     """
     response = interviews_calendar.get_slots()
     return jsonify(response)
@@ -33,13 +33,10 @@ def view_calendar():
 @app.route('/interviews_calendar/interviewee/available-times', methods=['GET', 'POST'])
 def available_times():
     """
-
-    :return:
+    the interviewee's interface through the interviewer's schedule, from where he/she can view and select a slot
+    :return: return the assigned time or the whole available times
     """
-    print("asdasdasd")
     req = request.get_json()
-    print(req)
-    print(request.method)
     if request.method == 'GET':
         response = interviews_calendar.get_available_slots()
         return jsonify(response)
@@ -54,8 +51,8 @@ def available_times():
 @app.route('/interviews_calendar/interviewer/add-slots', methods=['POST'])
 def add_available_times():
     """
-
-    :return:
+    Add valid slot for specific interviewers
+    :return: the added slots at this moment
     """
     req = request.get_json()
     interviewers = req["interviewers"]
@@ -73,8 +70,8 @@ def add_available_times():
 @app.route('/interviews_calendar/search', methods=['GET'])
 def search():
     """
-
-    :return:
+    Search function to view all the slots available in the given range
+    :return: Objects which meet the given datetime time range
     """
     start_date = request.args.get("start_date")
     end_date = request.args.get("end_date")
