@@ -51,4 +51,17 @@ def add_available_times():
     return jsonify(response)
 
 
+@app.route('/interviews_calendar/search', methods=['GET'])
+def search():
+    req = request.get_json()
+    start_date = req["start_date"]
+    end_date = req["end_date"]
+
+    response = interviews_calendar.search(start_date=start_date,
+                                          end_date=end_date)
+    print(response)
+    return jsonify(response)
+
+
+
 app.run(debug=False, port=8080, host='0.0.0.0')
