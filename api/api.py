@@ -36,7 +36,10 @@ def available_times():
 
     :return:
     """
+    print("asdasdasd")
     req = request.get_json()
+    print(req)
+    print(request.method)
     if request.method == 'GET':
         response = interviews_calendar.get_available_slots()
         return jsonify(response)

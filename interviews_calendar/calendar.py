@@ -77,7 +77,10 @@ class Calendar:
 
         :return:
         """
-        return self.slots
+        slots = []
+        for slot in self.slots:
+            slots.append(slot.serialize())
+        return slots
 
     def add_slot(self, interviewers: list(), start_time: datetime, interviewee: str = ""):
         """
@@ -120,7 +123,6 @@ class Calendar:
         for slot_index in range(len(self.slots)):
             if self.slots[slot_index].is_available():
                 available_slots.append(self.slots[slot_index].serialize())
-        print(available_slots)
         return available_slots
 
     def set_interview(self, slot_id: int, interviewee: str):
