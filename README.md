@@ -47,7 +47,6 @@ curl -X POST \
   http://0.0.0.0:8080/interviews_calendar/interviewer/add-slots \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
-  -H 'postman-token: 379c5e98-6a15-b2f6-0ed7-9e8acad73dbb' \
   -d '{"interviewers": ["Morgan", "Geni mardoc", "JC-Quillet"], "start_times": ["12-1-2017 22:30", "01-01-2018 10:30"]}'
 ```
 #### POST Response example
@@ -86,20 +85,59 @@ The Interviewee can view all the available slots (slots which no candidate took 
 |/interviews_calendar/interviewee/available-times|POST|{"interviewee": interviewee name, "slot_id": id of the time slot (consider that it's the zero-based array slot from the previous route)}|
 ### Examples:
 #### GET Request sample
-```
-
+```http request
+curl -X GET \
+  http://0.0.0.0:8080/interviews_calendar/interviewee/available-times \
+  -H 'cache-control: no-cache' \
 ```
 #### GET Response example
-```
-
+```json
+[
+    {
+        "end_time": "Friday 2017-12-01 from 23:30:00.",
+        "interviewee": "",
+        "interviewers": [
+            "Morgan",
+            "Geni mardoc",
+            "JC-Quillet"
+        ],
+        "start_time": "Friday 2017-12-01 from 22:30:00."
+    },
+    {
+        "end_time": "Monday 2018-01-01 from 11:30:00.",
+        "interviewee": "",
+        "interviewers": [
+            "Morgan",
+            "Geni mardoc",
+            "JC-Quillet"
+        ],
+        "start_time": "Monday 2018-01-01 from 10:30:00."
+    }
+]
 ```
 #### POST Request sample
-```
-
+```http request
+curl -X POST \
+  http://0.0.0.0:8080/interviews_calendar/interviewee/available-times \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{
+	"interviewee": "interviewee name :)",
+	"slot_id": 1
+}'
 ```
 #### POST Response example
-```
-
+```json
+{
+    "end_time": "Monday 2018-01-01 from 11:30:00.",
+    "interviewee": "interviewee name :)",
+    "interviewers": [
+        "Morgan",
+        "Geni mardoc",
+        "JC-Quillet"
+    ],
+    "start_time": "Monday 2018-01-01 from 10:30:00."
+}
 ```
 
 3) System Admin
@@ -110,20 +148,37 @@ The system Admin can view all the slots scheduled on the calender so far.
 |/interviews_calendar/admin/view-all|GET|-|
 ### Examples:
 #### GET Request sample
-```
-
+```http request
+curl -X GET \
+  http://0.0.0.0:8080/interviews_calendar/admin/view-all \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{"interviewers": ["Morgan", "Geni mardoc", "JC-Quillet"], "start_times": ["12-1-2017 22:30", "01-01-2018 10:30"]}'
 ```
 #### GET Response example
-```
-
-```
-#### POST Request sample
-```
-
-```
-#### POST Response example
-```
-
+```Json
+[
+    {
+        "end_time": "Friday 2017-12-01 from 23:30:00.",
+        "interviewee": "",
+        "interviewers": [
+            "Morgan",
+            "Geni mardoc",
+            "JC-Quillet"
+        ],
+        "start_time": "Friday 2017-12-01 from 22:30:00."
+    },
+    {
+        "end_time": "Monday 2018-01-01 from 11:30:00.",
+        "interviewee": "",
+        "interviewers": [
+            "Morgan",
+            "Geni mardoc",
+            "JC-Quillet"
+        ],
+        "start_time": "Monday 2018-01-01 from 10:30:00."
+    }
+]
 ```
 
 4) All
@@ -139,14 +194,6 @@ Anybody can search for the added slots in the calendar in a specific time frame
 
 ```
 #### GET Response example
-```
-
-```
-#### POST Request sample
-```
-
-```
-#### POST Response example
 ```
 
 ```
