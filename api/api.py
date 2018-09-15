@@ -76,9 +76,8 @@ def search():
 
     :return:
     """
-    req = request.get_json()
-    start_date = req["start_date"]
-    end_date = req["end_date"]
+    start_date = request.args.get("start_date")
+    end_date = request.args.get("end_date")
 
     response = interviews_calendar.search(start_date=start_date,
                                           end_date=end_date)
